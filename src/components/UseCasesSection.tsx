@@ -14,32 +14,35 @@ interface UseCaseBlock {
 
 const usecases: UseCaseBlock[] = [
   {
-    title: "Security Assessments",
-    description: "Comprehensive risk evaluation across your infrastructure",
+    title: "Autonomous Vulnerability Detection",
+    description: "AI agents conduct comprehensive security testing with proof-of-concept exploits",
     bullets: [
-      "Cloud & on-premise scanning",
-      "Application vulnerability assessment",
-      "Network risk analysis",
+      "Access control vulnerabilities",
+      "Injection attack detection",
+      "Authentication flaws",
+      "Business logic vulnerabilities",
     ],
     imagePosition: "right",
   },
   {
-    title: "Compliance & Audit Reporting",
-    description: "Streamline regulatory compliance with automated reports",
+    title: "CI/CD Security Integration",
+    description: "Integrate security testing directly into your development pipeline",
     bullets: [
-      "SOC 2 Type II ready",
-      "Audit trail generation",
-      "Evidence collection",
+      "GitHub Actions integration",
+      "Automated PR scanning",
+      "Pre-deployment validation",
+      "Auto-fix pull requests",
     ],
     imagePosition: "left",
   },
   {
-    title: "Continuous Risk Monitoring",
-    description: "Stay ahead of emerging threats with ongoing assessment",
+    title: "Multi-Agent Orchestration",
+    description: "Distribute testing workload across parallel agents for faster results",
     bullets: [
-      "Monthly reassessments",
-      "Risk trend analysis",
-      "Executive dashboards",
+      "Distributed testing",
+      "Browser automation",
+      "Terminal environments",
+      "Python runtime execution",
     ],
     imagePosition: "right",
   },
@@ -49,7 +52,7 @@ export default function UseCasesSection() {
   return (
     <section className="py-20 bg-gradient-to-b from-slate-900/50 to-purple-900/30 px-8 backdrop-blur-sm">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-white mb-16">Solutions for Enterprise Teams</h2>
+        <h2 className="text-4xl font-bold text-white mb-16">Powered by Autonomous AI Agents</h2>
 
         <div className="space-y-16">
           {usecases.map((usecase, idx) => (

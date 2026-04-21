@@ -7,11 +7,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SecureAI — Enterprise Cybersecurity Reports Powered by AI",
-  description: "AI-driven cybersecurity intelligence platform for enterprise teams. Automated threat assessment, compliance reporting, and risk analysis.",
+  title: "Storm AI — Autonomous Security Testing with AI Agents",
+  description: "Autonomous AI-powered security testing platform that identifies and validates vulnerabilities with proof-of-concept exploits. Real validation, zero false positives.",
   openGraph: {
-    title: "SecureAI",
-    description: "Enterprise AI-Powered Cybersecurity Intelligence",
+    title: "Storm AI",
+    description: "Autonomous AI Agents for Enterprise Security Testing",
   },
 };
 

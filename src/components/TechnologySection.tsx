@@ -14,34 +14,34 @@ import {
 
 const features = [
   {
-    title: "AI-Powered Analysis",
-    description: "Machine learning models identify risks across infrastructure",
-    icon: Shield,
-  },
-  {
-    title: "Compliance Reports",
-    description: "Auto-generate SOC 2, ISO 27001, and HIPAA-aligned reports",
-    icon: Wrench,
-  },
-  {
-    title: "Real-Time Assessments",
-    description: "Continuous monitoring with instant risk evaluation",
-    icon: Zap,
-  },
-  {
-    title: "Enterprise Integration",
-    description: "API-first platform for seamless integration with your tools",
+    title: "Autonomous AI Agents",
+    description: "Multi-agent orchestration for parallel security testing across your applications",
     icon: Bot,
   },
   {
-    title: "Actionable Insights",
-    description: "Prioritized remediation guidance tied to business impact",
+    title: "Proof-of-Concept Exploits",
+    description: "Real validation with working PoCs, eliminating false positives",
+    icon: Target,
+  },
+  {
+    title: "Full Hacker Toolkit",
+    description: "HTTP proxy, browser automation, terminal environments, and Python runtime",
+    icon: Wrench,
+  },
+  {
+    title: "Comprehensive Coverage",
+    description: "Detects access control, injection attacks, authentication, and business logic flaws",
+    icon: Shield,
+  },
+  {
+    title: "Auto-Fix Capabilities",
+    description: "Ready-to-merge pull requests with remediation code",
     icon: Code,
   },
   {
-    title: "Multi-Team Collaboration",
-    description: "Role-based access for security, compliance, and management",
-    icon: Target,
+    title: "CI/CD Integration",
+    description: "GitHub Actions integration for automated security testing in your pipeline",
+    icon: Zap,
   },
 ];
 
@@ -50,7 +50,7 @@ export default function TechnologySection() {
     <section className="py-20 bg-gradient-to-b from-purple-900/30 to-slate-900/50 px-8 backdrop-blur-sm">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl font-bold text-white mb-12">
-          Enterprise-Grade Security Intelligence
+          Autonomous Security Testing Platform
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

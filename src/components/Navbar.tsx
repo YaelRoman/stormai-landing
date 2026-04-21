@@ -33,32 +33,38 @@ export default function Navbar() {
       <div className="flex items-center gap-2">
         <Image
           src="/storm-logo.svg"
-          alt="SecureAI"
+          alt="Storm AI"
           width={24}
           height={24}
         />
-        <span className="text-white font-bold">SecureAI</span>
+        <span className="text-white font-bold">Storm AI</span>
       </div>
 
       {/* Nav Links */}
       <div className="flex items-center gap-8">
         <a
-          href="https://docs.secureai.ai"
+          href="https://github.com/AustenLynn/strix"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-400 hover:text-cyan-400 transition-colors"
+        >
+          GitHub
+        </a>
+        <a
+          href="https://github.com/AustenLynn/strix#readme"
+          target="_blank"
+          rel="noopener noreferrer"
           className="text-gray-400 hover:text-cyan-400 transition-colors"
         >
           Docs
         </a>
         <a
-          href="https://secureai.ai/security"
+          href="https://github.com/AustenLynn/strix/issues"
+          target="_blank"
+          rel="noopener noreferrer"
           className="text-gray-400 hover:text-cyan-400 transition-colors"
         >
-          Security
-        </a>
-        <a
-          href="https://secureai.ai/contact"
-          className="text-gray-400 hover:text-cyan-400 transition-colors"
-        >
-          Contact
+          Support
         </a>
       </div>
 

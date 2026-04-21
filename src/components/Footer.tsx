@@ -4,25 +4,20 @@
  */
 
 const footerLinks = {
-  Product: [
-    { label: "SecureAI Platform", href: "https://secureai.ai" },
-    { label: "API Documentation", href: "https://docs.secureai.ai" },
-    { label: "Pricing", href: "https://secureai.ai/pricing" },
+  Project: [
+    { label: "GitHub Repository", href: "https://github.com/AustenLynn/strix" },
+    { label: "Documentation", href: "https://github.com/AustenLynn/strix#readme" },
+    { label: "Issues & Support", href: "https://github.com/AustenLynn/strix/issues" },
   ],
-  Company: [
-    { label: "About", href: "https://secureai.ai/about" },
-    { label: "Blog", href: "https://secureai.ai/blog" },
-    { label: "Contact", href: "https://secureai.ai/contact" },
+  Resources: [
+    { label: "Security Testing", href: "https://github.com/AustenLynn/strix#features" },
+    { label: "AI Agents", href: "https://github.com/AustenLynn/strix#technology-stack" },
+    { label: "CLI Tool", href: "https://github.com/AustenLynn/strix#installation" },
   ],
   Legal: [
-    { label: "Terms of Service", href: "https://secureai.ai/terms" },
-    { label: "Privacy Policy", href: "https://secureai.ai/privacy" },
-    { label: "Security", href: "https://secureai.ai/security" },
-  ],
-  Contact: [
-    { label: "sales@secureai.ai", href: "mailto:sales@secureai.ai" },
-    { label: "support@secureai.ai", href: "mailto:support@secureai.ai" },
-    { label: "Status", href: "https://status.secureai.ai" },
+    { label: "Apache License 2.0", href: "https://github.com/AustenLynn/strix/blob/main/LICENSE" },
+    { label: "Contributing", href: "https://github.com/AustenLynn/strix/blob/main/CONTRIBUTING.md" },
+    { label: "Code of Conduct", href: "https://github.com/AustenLynn/strix/blob/main/CODE_OF_CONDUCT.md" },
   ],
 };
 
@@ -54,7 +49,7 @@ export default function Footer() {
         {/* Divider */}
         <div className="border-t border-white/10 pt-8">
           <p className="text-gray-300 text-sm text-center">
-            © 2026 SecureAI. All Rights Reserved.
+            © 2026 Storm AI Contributors. Open source under Apache License 2.0.
           </p>
         </div>
       </div>

@@ -13,9 +13,9 @@ interface MetricItem {
 }
 
 const metrics: MetricItem[] = [
-  { label: "Enterprise Customers", value: "200+" },
-  { label: "Risk Reports Generated", value: "50K+" },
-  { label: "Average Assessment Time", value: "<2h" },
+  { label: "Vulnerability Validation Accuracy", value: "100%" },
+  { label: "False Positive Rate", value: "0%" },
+  { label: "Multi-Agent Orchestration", value: "Parallel" },
 ];
 
 export default function MetricsSection() {

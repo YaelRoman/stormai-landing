@@ -12,7 +12,7 @@ export default function HeroSection() {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText("curl -X POST https://api.secureai.ai/assess -d '{\"target\": \"example.com\"}'");
+    navigator.clipboard.writeText("pip install strix && strix scan https://target.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -27,36 +27,37 @@ export default function HeroSection() {
         {/* Eyebrow */}
         <div className="inline-block mb-6 px-4 py-2 rounded-full glass-sm">
           <p className="text-cyan-300 text-sm font-medium">
-            AI-Powered Cybersecurity Intelligence for Enterprise
+            Autonomous AI Security Testing Platform
           </p>
         </div>
 
         {/* Headline */}
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-          Threat Assessment Powered by AI
+          Find Vulnerabilities with Autonomous AI Agents
         </h1>
 
         {/* Subheading */}
         <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
-          Automate security assessments, generate compliant reports, and identify risks across your enterprise infrastructure with AI-driven insights.
+          Real validation with proof-of-concept exploits. No false positives. Multi-agent orchestration for comprehensive security testing across your applications.
         </p>
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <button
-            onClick={() => {
-              const element = document.getElementById("demo");
-              element?.scrollIntoView({ behavior: "smooth" });
-            }}
+          <a
+            href="https://github.com/AustenLynn/strix"
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-xl font-semibold transition-all duration-300 backdrop-blur-sm"
           >
-            Schedule Demo
-          </button>
+            View on GitHub
+          </a>
           <a
-            href="https://secureai.ai/docs"
+            href="https://github.com/AustenLynn/strix#readme"
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-8 py-4 glass rounded-xl font-semibold"
           >
-            View API Docs
+            Read Documentation
           </a>
         </div>
 
@@ -65,7 +66,7 @@ export default function HeroSection() {
           <div className="glass rounded-xl p-4">
             <div className="flex items-center gap-4">
               <code className="font-mono text-cyan-300 text-sm">
-                $ curl -X POST https://api.secureai.ai/assess
+                $ strix scan https://target.com
               </code>
               <button
                 onClick={handleCopy}

@@ -58,28 +58,28 @@ export default function WaitlistSection() {
   };
 
   return (
-    <section id="demo" className="py-20 bg-gradient-to-b from-purple-900/30 to-slate-900/50 px-8 backdrop-blur-sm">
+    <section id="waitlist" className="py-20 bg-gradient-to-b from-purple-900/30 to-slate-900/50 px-8 backdrop-blur-sm">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Left: Text Block */}
         <div>
           <h2 className="text-4xl font-bold text-white mb-6">
-            See SecureAI in Action
+            Get Started with Storm AI
           </h2>
           <p className="text-gray-300 mb-8">
-            Request a personalized demo to learn how enterprise teams use SecureAI for risk assessment, compliance reporting, and threat intelligence.
+            Join the open-source community building the future of autonomous security testing. Get started with our CLI tool or deploy to your infrastructure.
           </p>
           <ul className="space-y-4">
             <li className="flex items-center gap-3">
               <Check className="w-5 h-5 text-green-400 flex-shrink-0" />
-              <span className="text-gray-300">Live platform walkthrough</span>
+              <span className="text-gray-300">Open source under Apache 2.0</span>
             </li>
             <li className="flex items-center gap-3">
               <Check className="w-5 h-5 text-green-400 flex-shrink-0" />
-              <span className="text-gray-300">ROI and use case review</span>
+              <span className="text-gray-300">Multiple LLM support (OpenAI, Anthropic, etc)</span>
             </li>
             <li className="flex items-center gap-3">
               <Check className="w-5 h-5 text-green-400 flex-shrink-0" />
-              <span className="text-gray-300">Pricing and trial setup</span>
+              <span className="text-gray-300">Full hacker toolkit included</span>
             </li>
           </ul>
         </div>
@@ -126,22 +126,22 @@ export default function WaitlistSection() {
               {state === "submitting" && (
                 <>
                   <Loader size={20} className="animate-spin" />
-                  Scheduling...
+                  Joining...
                 </>
               )}
               {state === "success" && (
                 <>
                   <Check size={20} />
-                  Demo Scheduled!
+                  Welcome to Storm AI!
                 </>
               )}
-              {(state === "idle" || state === "error") && "Schedule Demo"}
+              {(state === "idle" || state === "error") && "Join the Community"}
             </button>
 
             {/* Success Message */}
             {state === "success" && (
               <div className="bg-green-500/20 backdrop-blur-md border border-green-500/40 rounded-lg p-4 text-green-300">
-                Thanks! Our team will contact you within 24 hours to confirm your demo.
+                Thanks for joining! Check out the GitHub repository to get started.
               </div>
             )}
           </form>
