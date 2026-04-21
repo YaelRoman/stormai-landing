@@ -5,18 +5,6 @@
 
 "use client";
 
-import { Copy, Check } from "lucide-react";
-import { useState } from "react";
-
-export default function HeroSection() {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText("pip install strix && strix scan https://target.com");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
     <section className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative gradient-bg flex items-center justify-center px-8 overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -61,23 +49,13 @@ export default function HeroSection() {
           </a>
         </div>
 
-        {/* Terminal Card */}
-        <div className="inline-block">
-          <div className="glass rounded-xl p-4">
-            <div className="flex items-center gap-4">
-              <code className="font-mono text-cyan-300 text-sm">
-                $ strix scan https://target.com
-              </code>
-              <button
-                onClick={handleCopy}
-                className="p-2 hover:bg-white/20 rounded transition-colors"
-              >
-                {copied ? (
-                  <Check size={20} className="text-green-400" />
-                ) : (
-                  <Copy size={20} className="text-cyan-300" />
-                )}
-              </button>
+        {/* Visual Animation */}
+        <div className="relative w-full max-w-md h-32 mx-auto mt-8">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-32 h-32 rounded-full border-2 border-cyan-400/30 animate-pulse" />
+            <div className="absolute w-24 h-24 rounded-full border-2 border-blue-400/50 animate-spin" style={{ animationDuration: '3s' }} />
+            <div className="absolute w-16 h-16 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center text-white font-bold">
+              AI
             </div>
           </div>
         </div>

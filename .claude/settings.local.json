@@ -3,7 +3,11 @@
     "allow": [
       "WebFetch(domain:github.com)",
       "Bash(npm run *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(echo \"Dev server started with PID: $!\")",
+      "Bash(curl -s http://localhost:3002)"
     ]
   }
 }
