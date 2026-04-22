@@ -8,7 +8,11 @@
       "Bash(curl -s http://localhost:3000)",
       "Bash(echo \"Dev server started with PID: $!\")",
       "Bash(curl -s http://localhost:3002)",
-      "Bash(git commit -m 'fix: Move '\\\\''use client'\\\\'' directives to top of files *)"
+      "Bash(git commit -m 'fix: Move '\\\\''use client'\\\\'' directives to top of files *)",
+      "Bash(pkill -f \"npm run dev\")",
+      "Bash(awk '{print $2}')",
+      "Bash(xargs kill *)",
+      "Bash(git commit -m 'fix: Constrain vulnerability coverage glow effect *)"
     ]
   }
 }
