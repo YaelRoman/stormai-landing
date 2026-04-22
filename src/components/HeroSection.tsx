@@ -99,7 +99,7 @@ export default function HeroSection() {
             </div>
 
             {/* Terminal content */}
-            <div className="bg-slate-950 p-4 min-h-80 font-mono text-sm overflow-hidden">
+            <div className="bg-slate-950 p-4 h-80 overflow-y-auto font-mono text-sm">
               <div className="space-y-1">
                 {displayText.split("\n").map((line, idx) => {
                   const isVulnerability = line.includes("⚠") || line.includes("PoC");
