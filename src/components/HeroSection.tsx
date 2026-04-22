@@ -5,6 +5,7 @@
 
 "use client";
 
+export default function HeroSection() {
   return (
     <section className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative gradient-bg flex items-center justify-center px-8 overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -63,3 +64,4 @@
     </section>
   );
 }
+

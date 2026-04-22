@@ -3,6 +3,9 @@
  * Licensed under the Apache License, Version 2.0
  */
 
+"use client";
+
+import { useState } from "react";
 import {
   Shield,
   Wrench,
@@ -44,10 +47,6 @@ const features = [
     icon: Zap,
   },
 ];
-
-"use client";
-
-import { useState } from "react";
 
 export default function TechnologySection() {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
