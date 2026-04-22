@@ -14,7 +14,8 @@
       "Bash(xargs kill *)",
       "Bash(git commit -m 'fix: Constrain vulnerability coverage glow effect *)",
       "Bash(curl -s http://localhost:3003)",
-      "Bash(git commit -m 'feat: Replace AI circle with interactive security scanning animation *)"
+      "Bash(git commit -m 'feat: Replace AI circle with interactive security scanning animation *)",
+      "Bash(git commit -m 'feat: Add animated CLI interface and testing methodologies section *)"
     ]
   }
 }

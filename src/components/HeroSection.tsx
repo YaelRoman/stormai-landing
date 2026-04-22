@@ -5,7 +5,42 @@
 
 "use client";
 
+import { useState, useEffect } from "react";
+
 export default function HeroSection() {
+  const [displayText, setDisplayText] = useState("");
+  const cliOutput = `$ storm scan https://vulnerable-app.com
+▶ Initializing autonomous security agents...
+✓ 4 agents deployed to target
+✓ Browser automation initialized
+✓ HTTP proxy interceptor ready
+
+[00:02] Scanning application surface...
+[00:05] ⚠ SQL Injection found in /api/users
+[00:08] ⚠ Cross-Site Scripting in search param
+[00:12] ⚠ Authentication bypass detected
+[00:15] Generating proof-of-concept exploits...
+[00:18] ✓ PoC 1: SQL Injection - CONFIRMED
+[00:21] ✓ PoC 2: XSS Attack - CONFIRMED
+[00:24] ✓ PoC 3: Auth Bypass - CONFIRMED
+[00:27] Generating remediation code...
+✓ Auto-fix PR ready for merge`;
+
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index < cliOutput.length) {
+        setDisplayText(cliOutput.slice(0, index + 1));
+        index++;
+      } else {
+        index = 0;
+        setDisplayText("");
+      }
+    }, 15);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative gradient-bg flex items-center justify-center px-8 overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -50,203 +85,64 @@ export default function HeroSection() {
           </a>
         </div>
 
-        {/* Animated Security Scanning Visualization */}
-        <div className="relative w-full max-w-md h-64 mx-auto mt-8">
-          <svg className="w-full h-full" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-            {/* Background circles */}
-            <circle cx="200" cy="150" r="120" fill="none" stroke="#06b6d4" strokeWidth="1" opacity="0.2" />
-            <circle cx="200" cy="150" r="80" fill="none" stroke="#06b6d4" strokeWidth="1" opacity="0.3" />
-            <circle cx="200" cy="150" r="40" fill="none" stroke="#06b6d4" strokeWidth="1" opacity="0.4" />
+        {/* Animated CLI Terminal */}
+        <div className="relative w-full max-w-2xl mx-auto mt-8">
+          <div className="glass rounded-lg overflow-hidden border border-cyan-400/30">
+            {/* Terminal header */}
+            <div className="bg-slate-900 px-4 py-3 border-b border-cyan-400/20 flex items-center gap-3">
+              <div className="flex gap-2">
+                <div className="w-3 h-3 rounded-full bg-red-500" />
+                <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                <div className="w-3 h-3 rounded-full bg-green-500" />
+              </div>
+              <span className="text-gray-400 text-sm font-mono">storm-scan</span>
+            </div>
 
-            {/* Animated scanning ring */}
-            <circle
-              cx="200"
-              cy="150"
-              r="120"
-              fill="none"
-              stroke="#0ea5e9"
-              strokeWidth="2"
-              opacity="0.6"
-              style={{
-                animation: 'expandRing 3s ease-out infinite',
-              }}
-            />
+            {/* Terminal content */}
+            <div className="bg-slate-950 p-4 min-h-80 font-mono text-sm overflow-hidden">
+              <div className="space-y-1">
+                {displayText.split("\n").map((line, idx) => {
+                  const isVulnerability = line.includes("⚠") || line.includes("PoC");
+                  const isSuccess = line.includes("✓");
+                  const isWarning = line.includes("⚠");
 
-            {/* AI Agent 1 - Top */}
-            <g style={{ animation: 'agentMove1 4s ease-in-out infinite' }}>
-              <circle cx="200" cy="50" r="8" fill="#06b6d4" />
-              <circle cx="200" cy="50" r="12" fill="none" stroke="#06b6d4" strokeWidth="1.5" opacity="0.5" />
-            </g>
+                  return (
+                    <div
+                      key={idx}
+                      className={`transition-all duration-300 ${
+                        isVulnerability
+                          ? "bg-gradient-to-r from-red-500/20 to-transparent px-2 py-1"
+                          : ""
+                      }`}
+                    >
+                      <span
+                        className={`${
+                          isSuccess
+                            ? "text-green-400"
+                            : isWarning
+                            ? "text-orange-400 font-semibold"
+                            : line.includes("$")
+                            ? "text-cyan-400"
+                            : line.match(/\[\d+:\d+\]/)
+                            ? "text-gray-500"
+                            : "text-gray-300"
+                        }`}
+                      >
+                        {line}
+                      </span>
+                    </div>
+                  );
+                })}
+                {/* Cursor */}
+                <span className="text-green-400 animate-pulse">▌</span>
+              </div>
+            </div>
+          </div>
 
-            {/* AI Agent 2 - Right */}
-            <g style={{ animation: 'agentMove2 4s ease-in-out infinite' }}>
-              <circle cx="300" cy="150" r="8" fill="#0ea5e9" />
-              <circle cx="300" cy="150" r="12" fill="none" stroke="#0ea5e9" strokeWidth="1.5" opacity="0.5" />
-            </g>
-
-            {/* AI Agent 3 - Bottom */}
-            <g style={{ animation: 'agentMove3 4s ease-in-out infinite' }}>
-              <circle cx="200" cy="250" r="8" fill="#06b6d4" />
-              <circle cx="200" cy="250" r="12" fill="none" stroke="#06b6d4" strokeWidth="1.5" opacity="0.5" />
-            </g>
-
-            {/* AI Agent 4 - Left */}
-            <g style={{ animation: 'agentMove4 4s ease-in-out infinite' }}>
-              <circle cx="100" cy="150" r="8" fill="#0ea5e9" />
-              <circle cx="100" cy="150" r="12" fill="none" stroke="#0ea5e9" strokeWidth="1.5" opacity="0.5" />
-            </g>
-
-            {/* Connection lines */}
-            <line
-              x1="200"
-              y1="150"
-              x2="200"
-              y2="50"
-              stroke="#06b6d4"
-              strokeWidth="1"
-              opacity="0.3"
-            />
-            <line
-              x1="200"
-              y1="150"
-              x2="300"
-              y2="150"
-              stroke="#06b6d4"
-              strokeWidth="1"
-              opacity="0.3"
-            />
-            <line
-              x1="200"
-              y1="150"
-              x2="200"
-              y2="250"
-              stroke="#06b6d4"
-              strokeWidth="1"
-              opacity="0.3"
-            />
-            <line
-              x1="200"
-              y1="150"
-              x2="100"
-              y2="150"
-              stroke="#06b6d4"
-              strokeWidth="1"
-              opacity="0.3"
-            />
-
-            {/* Center core */}
-            <circle cx="200" cy="150" r="12" fill="#06b6d4" opacity="0.8" />
-            <circle
-              cx="200"
-              cy="150"
-              r="12"
-              fill="none"
-              stroke="#06b6d4"
-              strokeWidth="2"
-              style={{ animation: 'pulse 2s ease-in-out infinite' }}
-            />
-
-            {/* Vulnerability indicators - pulsing dots */}
-            <circle
-              cx="140"
-              cy="100"
-              r="4"
-              fill="#ef4444"
-              style={{ animation: 'vulnerabilityPulse 2s ease-in-out infinite 0.2s' }}
-            />
-            <circle
-              cx="260"
-              cy="100"
-              r="4"
-              fill="#ef4444"
-              style={{ animation: 'vulnerabilityPulse 2s ease-in-out infinite 0.4s' }}
-            />
-            <circle
-              cx="280"
-              cy="180"
-              r="4"
-              fill="#f97316"
-              style={{ animation: 'vulnerabilityPulse 2s ease-in-out infinite 0.6s' }}
-            />
-            <circle
-              cx="120"
-              cy="200"
-              r="4"
-              fill="#ef4444"
-              style={{ animation: 'vulnerabilityPulse 2s ease-in-out infinite 0.8s' }}
-            />
-          </svg>
-
-          <style>{`
-            @keyframes expandRing {
-              0% {
-                r: 40;
-                opacity: 0.8;
-              }
-              100% {
-                r: 130;
-                opacity: 0;
-              }
-            }
-
-            @keyframes agentMove1 {
-              0%, 100% {
-                transform: translate(0, 0);
-              }
-              50% {
-                transform: translate(30px, -20px);
-              }
-            }
-
-            @keyframes agentMove2 {
-              0%, 100% {
-                transform: translate(0, 0);
-              }
-              50% {
-                transform: translate(20px, 30px);
-              }
-            }
-
-            @keyframes agentMove3 {
-              0%, 100% {
-                transform: translate(0, 0);
-              }
-              50% {
-                transform: translate(-30px, 20px);
-              }
-            }
-
-            @keyframes agentMove4 {
-              0%, 100% {
-                transform: translate(0, 0);
-              }
-              50% {
-                transform: translate(-20px, -30px);
-              }
-            }
-
-            @keyframes pulse {
-              0%, 100% {
-                r: 12;
-                opacity: 0.8;
-              }
-              50% {
-                r: 16;
-                opacity: 0.4;
-              }
-            }
-
-            @keyframes vulnerabilityPulse {
-              0%, 100% {
-                r: 4;
-                opacity: 0.3;
-              }
-              50% {
-                r: 6;
-                opacity: 1;
-              }
-            }
-          `}</style>
+          {/* Info text */}
+          <p className="text-center text-sm text-gray-400 mt-4">
+            Real-time vulnerability detection and exploitation
+          </p>
         </div>
       </div>
     </section>

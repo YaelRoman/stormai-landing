@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AnalysisFlowSection from "@/components/AnalysisFlowSection";
 import VulnerabilityShowcase from "@/components/VulnerabilityShowcase";
+import TestingMethodsSection from "@/components/TestingMethodsSection";
 import MetricsSection from "@/components/MetricsSection";
 import TechnologySection from "@/components/TechnologySection";
 import UseCasesSection from "@/components/UseCasesSection";
@@ -19,6 +20,7 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <AnalysisFlowSection />
+      <TestingMethodsSection />
       <VulnerabilityShowcase />
       <MetricsSection />
       <TechnologySection />
