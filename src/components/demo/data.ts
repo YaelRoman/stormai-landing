@@ -20,6 +20,7 @@ export interface Vuln {
   pocPayload: string;
   pocCode: string;
   chefComment: string;
+  chefCommentEs: string;
 }
 
 export const VULNS: Vuln[] = [
@@ -75,6 +76,8 @@ requests.post(
 # → {"status": "success", "message": "Admin created"}`,
     chefComment:
       "The apostrophe is the parsley of SQL injection — purely decorative, until it's in the wrong place and everything dies. One character. The query didn't break; it finished. The database logged us in as admin and wished us a pleasant evening.",
+    chefCommentEs:
+      "El apóstrofe es el perejil de la inyección SQL: puramente decorativo, hasta que cae en el lugar equivocado y todo muere. Un solo carácter. La consulta no se rompió; se completó. La base de datos nos autenticó como administrador y nos deseó una buena velada.",
   },
   {
     id: "vuln-0006",
@@ -129,6 +132,8 @@ print(login.json())
 # {"token": "eyJ...", "isAdmin": true, "accountNumber": "ADMIN001"}`,
     chefComment:
       "The PIN was sent to the user's email. The PIN was also in the response body of the request that sent it. The server emailed you a secret and then immediately whispered it to anyone who asked. Three requests to full admin. The email wasn't even necessary — it was a garnish.",
+    chefCommentEs:
+      "El PIN fue enviado al correo del usuario. El PIN también estaba en el cuerpo de la respuesta de la misma petición. El servidor te envió un secreto por correo y acto seguido se lo susurró a cualquiera que preguntara. Tres peticiones para acceso admin completo. El correo ni siquiera era necesario — era una guarnición.",
   },
   {
     id: "vuln-0002",
@@ -182,6 +187,8 @@ iam = requests.get(f"{BASE}/{resp2.json()['file_path']}").text
 # → AccessKeyId, SecretAccessKey, Token, RoleArn`,
     chefComment:
       "A profile picture upload is a very small window. This one faced the kitchen. The server fetched the URL we gave it, grabbed its own jwt_secret from internal storage, and saved it as a publicly accessible file — essentially laminating its credentials and hanging them by the door.",
+    chefCommentEs:
+      "La carga de una foto de perfil es una ventana muy pequeña. Esta daba a la cocina. El servidor descargó la URL que le proporcionamos, tomó su propio jwt_secret del almacenamiento interno y lo guardó como archivo de acceso público — básicamente laminó sus credenciales y las colgó junto a la puerta.",
   },
   {
     id: "vuln-0001",
@@ -225,6 +232,8 @@ r3 = requests.get(
 # → idoru2's transactions, served to idoru1`,
     chefComment:
       "The application has a locked front door and a fully open side entrance with a welcome mat. No authentication. No ownership check. The only ingredient required is an account number, which is an integer, which starts at one. We did not start at one. We started at a hundred, out of respect. The endpoint didn't notice either way.",
+    chefCommentEs:
+      "La aplicación tiene la puerta principal cerrada con llave y una entrada lateral completamente abierta con un felpudo de bienvenida. Sin autenticación. Sin verificación de titularidad. El único ingrediente necesario es un número de cuenta, que es un entero, que empieza en uno. Nosotros no empezamos en uno. Empezamos en cien, por respeto. El endpoint no se dio cuenta de todas formas.",
   },
   {
     id: "vuln-0003",
@@ -270,6 +279,8 @@ print(r2.json())
 # User 1's card is now unfrozen. They have no idea.`,
     chefComment:
       "The authorization check passes. You are a customer. The application is satisfied — it asked the right question and got the right answer. The question was 'are you logged in.' The question was not 'is this your card.' Those are different questions. The system passed every check it was designed to pass. That's not a bug. That's a spec.",
+    chefCommentEs:
+      "La verificación de autorización pasa. Eres un cliente. La aplicación está satisfecha: hizo la pregunta correcta y obtuvo la respuesta correcta. La pregunta era '¿estás autenticado?'. La pregunta no era '¿es esta tu tarjeta?'. Son preguntas distintas. El sistema superó cada verificación para la que fue diseñado. Eso no es un bug. Eso es la especificación.",
   },
   {
     id: "vuln-0004",
@@ -314,6 +325,8 @@ print(r.json())
 # victim:  1010 → 960  (-50 taken)`,
     chefComment:
       "The transfer endpoint accepts a recipient, an amount, and your implicit trust that someone validated the sign. No one did. Negative fifty dollars moves fifty dollars in the wrong direction, the server confirms the transaction with a 200 OK, and the ledger records it as a success. The system isn't broken. It's working exactly as written. That's the worse version.",
+    chefCommentEs:
+      "El endpoint de transferencia acepta un destinatario, un monto y tu confianza implícita en que alguien validó el signo. Nadie lo hizo. Menos cincuenta dólares mueve cincuenta dólares en la dirección incorrecta, el servidor confirma la transacción con un 200 OK y el libro contable lo registra como éxito. El sistema no está roto. Funciona exactamente como fue escrito. Esa es la peor versión.",
   },
   {
     id: "vuln-0007",
@@ -359,6 +372,8 @@ print("After:", after["balance"])  # 1010.00
 # +50 from a bill payment. Completely legal, apparently.`,
     chefComment:
       "We already found this. On a different endpoint. The recurring theme has recurred.",
+    chefCommentEs:
+      "Ya encontramos esto. En un endpoint diferente. El tema recurrente ha recurrido.",
   },
 ];
 

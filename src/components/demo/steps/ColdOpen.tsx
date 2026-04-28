@@ -3,9 +3,16 @@
  * Licensed under the Apache License, Version 2.0
  */
 
+"use client";
+
+import { useLang } from "../LangContext";
+import { i18n } from "../i18n";
 import { RUN_STATS } from "../data";
 
 export default function ColdOpen() {
+  const { lang } = useLang();
+  const t = i18n[lang];
+
   return (
     <div className="min-h-[calc(100vh-116px)] flex flex-col items-center justify-center px-8 relative overflow-hidden">
 
@@ -19,7 +26,7 @@ export default function ColdOpen() {
 
       {/* Network / show identifier */}
       <div className="text-storm-muted text-[0.65rem] tracking-[0.35em] mb-6 font-mono">
-        THE SECURITY FOOD NETWORK PRESENTS
+        {t.networkPresents}
       </div>
 
       {/* Show title */}
@@ -42,34 +49,35 @@ export default function ColdOpen() {
         className="text-storm-secondary text-xl italic text-center mb-8"
         style={{ fontFamily: '"Playfair Display", serif' }}
       >
-        &ldquo;Where every vulnerability is cooked to perfection&rdquo;
+        &ldquo;{t.tagline}&rdquo;
       </div>
 
       {/* Episode card */}
       <div className="border border-storm-border bg-storm-surface px-10 py-6 text-center max-w-lg mb-8">
-        <div className="label mb-2">Season 01 · Episode 01</div>
+        <div className="label mb-2">{t.seasonEpisode}</div>
         <div className="text-storm-text font-bold text-xl mb-3">
-          A Seven-Course Feast at VulnBank
+          {t.episodeTitle}
         </div>
         <div className="text-storm-secondary text-sm leading-relaxed">
-          Tonight, Chef Storm serves <span className="text-storm-danger font-semibold">3 Critical</span> and{" "}
-          <span className="text-storm-amber font-semibold">4 High-severity</span> findings
-          in a fully autonomous {RUN_STATS.durationMin}-minute sitting.
-          Zero false positives. Zero courses sent back to the kitchen.
+          {t.episodeDesc(
+            RUN_STATS.bySeverity.critical,
+            RUN_STATS.bySeverity.high,
+            RUN_STATS.durationMin
+          )}
         </div>
       </div>
 
       {/* Cast / credits row */}
       <div className="flex gap-8 text-center mb-10">
         {[
-          { label: "Target", value: "VulnBank" },
-          { label: "Method", value: "Black Box" },
-          { label: "Agents", value: "4 AI" },
-          { label: "Runtime", value: `${RUN_STATS.durationMin} min` },
-          { label: "Cost", value: `$${RUN_STATS.cost.toFixed(2)}` },
+          { key: "Target",   value: "VulnBank" },
+          { key: "Method",   value: "Black Box" },
+          { key: "Agents",   value: "4 AI" },
+          { key: "Runtime",  value: `${RUN_STATS.durationMin} min` },
+          { key: "Cost",     value: `$${RUN_STATS.cost.toFixed(2)}` },
         ].map((c) => (
-          <div key={c.label}>
-            <div className="label mb-1">{c.label}</div>
+          <div key={c.key}>
+            <div className="label mb-1">{t.castLabels[c.key as keyof typeof t.castLabels]}</div>
             <div className="text-storm-text font-mono text-sm font-bold">{c.value}</div>
           </div>
         ))}
@@ -80,9 +88,9 @@ export default function ColdOpen() {
         className="text-storm-muted text-xs italic text-center"
         style={{ fontFamily: '"Playfair Display", serif' }}
       >
-        Filmed before a live audience of security engineers who have definitely seen this at a real bank.
+        {t.finePrint1}
         <br />
-        VulnBank is fictional. The vulnerabilities are not. The NDA is.
+        {t.finePrint2}
       </div>
     </div>
   );
