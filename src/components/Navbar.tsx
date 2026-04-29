@@ -13,9 +13,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -23,58 +21,46 @@ export default function Navbar() {
   return (
     <nav
       className={cn(
-        "fixed top-0 z-50 w-full px-8 py-4 flex items-center justify-between transition-all duration-300",
+        "fixed top-0 z-50 w-full px-8 py-4 flex items-center justify-between transition-all duration-200",
         scrolled
-          ? "bg-white/10 backdrop-blur-xl border-b border-white/20"
+          ? "bg-storm-base border-b border-storm-border"
           : "bg-transparent"
       )}
     >
-      {/* Logo */}
-      <div className="flex items-center gap-2">
-        <Image
-          src="/storm-logo.svg"
-          alt="Storm AI"
-          width={24}
-          height={24}
-        />
-        <span className="text-white font-bold">Storm AI</span>
+      <div className="flex items-center gap-3">
+        <Image src="/storm-logo.svg" alt="Storm AI" width={18} height={18} />
+        <span className="font-mono text-storm-amber font-bold text-sm tracking-[0.2em]">
+          STORM
+        </span>
       </div>
 
-      {/* Nav Links */}
-      <div className="flex items-center gap-8">
-        <a
-          href="https://github.com/AustenLynn/strix"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-gray-400 hover:text-cyan-400 transition-colors"
-        >
-          GitHub
-        </a>
-        <a
-          href="https://github.com/AustenLynn/strix#readme"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-gray-400 hover:text-cyan-400 transition-colors"
-        >
-          Docs
-        </a>
-        <a
-          href="https://github.com/AustenLynn/strix/issues"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-gray-400 hover:text-cyan-400 transition-colors"
-        >
-          Support
-        </a>
+      <div className="hidden md:flex items-center gap-8">
+        {[
+          { label: "GitHub",     href: "https://github.com/AustenLynn/strix", external: true  },
+          { label: "Docs",       href: "https://github.com/AustenLynn/strix#readme", external: true },
+          { label: "Support",    href: "https://github.com/AustenLynn/strix/issues", external: true },
+          { label: "Watch Demo 🍳", href: "/demo", external: false },
+        ].map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            className={`text-sm transition-colors duration-150 ${
+              link.label.includes("Demo")
+                ? "text-storm-amber hover:text-storm-amber-bright font-semibold"
+                : "text-storm-secondary hover:text-storm-text"
+            }`}
+          >
+            {link.label}
+          </a>
+        ))}
       </div>
 
-      {/* CTA Button */}
       <button
         onClick={() => {
-          const element = document.getElementById("waitlist");
-          element?.scrollIntoView({ behavior: "smooth" });
+          document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth" });
         }}
-        className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+        className="btn-amber text-xs py-2 px-5"
       >
         Get Early Access
       </button>

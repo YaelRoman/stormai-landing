@@ -6,7 +6,6 @@
 "use client";
 
 import { useState } from "react";
-import { Check, AlertCircle, Loader } from "lucide-react";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -18,32 +17,24 @@ export default function WaitlistSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Validate email
     if (!email || !email.includes("@")) {
-      setErrorMsg("Please enter a valid email");
+      setErrorMsg("Enter a valid email address");
       return;
     }
-
     setState("submitting");
     setErrorMsg("");
-
     try {
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, company_name: company || undefined }),
       });
-
       await res.json();
-
       if (res.ok) {
         setState("success");
         setEmail("");
         setCompany("");
-        setTimeout(() => {
-          setState("idle");
-        }, 3000);
+        setTimeout(() => setState("idle"), 4000);
       } else if (res.status === 409) {
         setErrorMsg("This email is already on the waitlist");
         setState("error");
@@ -58,104 +49,106 @@ export default function WaitlistSection() {
   };
 
   return (
-    <section id="waitlist" className="py-20 bg-gradient-to-b from-purple-900/30 to-slate-900/50 px-8 backdrop-blur-sm relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-      </div>
+    <section
+      id="waitlist"
+      className="py-24 bg-storm-base section-divider px-8"
+    >
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
 
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
-        {/* Left: Text Block */}
+        {/* Left */}
         <div>
-          <h2 className="text-4xl font-bold text-white mb-6">
-            Get Started with Storm AI
+          <div className="label mb-3">Early Access</div>
+          <h2 className="text-4xl font-bold text-storm-text mb-4">
+            Get Started with<br />Storm AI
           </h2>
-          <p className="text-gray-300 mb-8">
-            Join the open-source community building the future of autonomous security testing. Get started with our CLI tool or deploy to your infrastructure.
+          <p className="text-storm-secondary leading-relaxed mb-8">
+            Join the open-source community building the future of autonomous
+            security testing. Get started with our CLI or deploy to your
+            own infrastructure.
           </p>
-          <ul className="space-y-4">
-            <li className="flex items-center gap-3 group cursor-pointer">
-              <Check className="w-5 h-5 text-green-400 flex-shrink-0 group-hover:scale-125 transition-transform" />
-              <span className="text-gray-300 group-hover:text-green-300 transition-colors">Open source under Apache 2.0</span>
-            </li>
-            <li className="flex items-center gap-3 group cursor-pointer">
-              <Check className="w-5 h-5 text-green-400 flex-shrink-0 group-hover:scale-125 transition-transform" />
-              <span className="text-gray-300 group-hover:text-green-300 transition-colors">Multiple LLM support (OpenAI, Anthropic, etc)</span>
-            </li>
-            <li className="flex items-center gap-3 group cursor-pointer">
-              <Check className="w-5 h-5 text-green-400 flex-shrink-0 group-hover:scale-125 transition-transform" />
-              <span className="text-gray-300 group-hover:text-green-300 transition-colors">Full hacker toolkit included</span>
-            </li>
+          <ul className="space-y-3">
+            {[
+              "Open source under Apache 2.0",
+              "Multiple LLM support — OpenAI, Anthropic, Gemini",
+              "Full hacker toolkit included",
+            ].map((item) => (
+              <li key={item} className="flex items-center gap-3 text-sm">
+                <span className="text-storm-amber font-mono text-xs">▸</span>
+                <span className="text-storm-text">{item}</span>
+              </li>
+            ))}
           </ul>
+          <div className="mt-10 border-t border-storm-border pt-8">
+            <div className="label mb-3">Quick Start</div>
+            <div className="bg-storm-surface border border-storm-border p-4 font-mono text-[0.78rem] leading-relaxed">
+              <div className="text-storm-amber">$ pip install storm-ai</div>
+              <div className="text-storm-secondary">$ storm scan https://your-app.com</div>
+            </div>
+          </div>
         </div>
 
         {/* Right: Form */}
         <div>
-          <form onSubmit={handleSubmit} className="space-y-4 glass rounded-xl p-8 border border-white/10">
-            {/* Email Input */}
-            <div className="group">
-              <label className="block text-xs font-semibold text-cyan-400 mb-2 uppercase tracking-wider">
-                Email Address
-              </label>
-              <input
-                type="email"
-                placeholder="name@company.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={state === "submitting" || state === "success"}
-                className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400/50 focus:bg-white/15 disabled:opacity-50 transition-all group-hover:border-white/30"
-              />
-              {state === "error" && errorMsg && (
-                <div className="flex items-center gap-2 mt-2 text-red-400 animate-shake">
-                  <AlertCircle size={16} />
-                  <span className="text-sm">{errorMsg}</span>
-                </div>
-              )}
+          <form
+            onSubmit={handleSubmit}
+            className="border border-storm-border bg-storm-surface"
+          >
+            <div className="px-8 py-6 border-b border-storm-border">
+              <div className="label">Join the Community</div>
             </div>
 
-            {/* Company Input */}
-            <div className="group">
-              <label className="block text-xs font-semibold text-cyan-400 mb-2 uppercase tracking-wider">
-                Company Name (Optional)
-              </label>
-              <input
-                type="text"
-                placeholder="Your Company"
-                value={company}
-                onChange={(e) => setCompany(e.target.value)}
-                disabled={state === "submitting" || state === "success"}
-                className="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400/50 focus:bg-white/15 disabled:opacity-50 transition-all group-hover:border-white/30"
-              />
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={state === "submitting" || state === "success"}
-              className="w-full px-8 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 disabled:opacity-50 text-white rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm hover:shadow-lg hover:shadow-blue-500/50"
-            >
-              {state === "submitting" && (
-                <>
-                  <Loader size={20} className="animate-spin" />
-                  Joining...
-                </>
-              )}
-              {state === "success" && (
-                <>
-                  <Check size={20} />
-                  Welcome to Storm AI!
-                </>
-              )}
-              {(state === "idle" || state === "error") && "Join the Community"}
-            </button>
-
-            {/* Success Message */}
-            {state === "success" && (
-              <div className="bg-green-500/20 backdrop-blur-md border border-green-500/40 rounded-lg p-4 text-green-300">
-                Thanks for joining! Check out the GitHub repository to get started.
+            <div className="px-8 py-6 space-y-5">
+              <div>
+                <label className="label block mb-2">Email Address</label>
+                <input
+                  type="email"
+                  placeholder="you@company.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={state === "submitting" || state === "success"}
+                  className="w-full bg-storm-base border border-storm-border px-4 py-3 text-storm-text text-sm
+                             placeholder:text-storm-muted font-mono
+                             focus:outline-none focus:border-storm-amber
+                             disabled:opacity-50 transition-colors duration-150"
+                />
+                {state === "error" && errorMsg && (
+                  <p className="mt-2 text-storm-danger text-xs font-mono">{errorMsg}</p>
+                )}
               </div>
-            )}
+
+              <div>
+                <label className="label block mb-2">Company (Optional)</label>
+                <input
+                  type="text"
+                  placeholder="Your Company"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                  disabled={state === "submitting" || state === "success"}
+                  className="w-full bg-storm-base border border-storm-border px-4 py-3 text-storm-text text-sm
+                             placeholder:text-storm-muted
+                             focus:outline-none focus:border-storm-amber
+                             disabled:opacity-50 transition-colors duration-150"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={state === "submitting" || state === "success"}
+                className="w-full py-3 bg-storm-amber text-storm-base text-sm font-bold tracking-wide
+                           hover:bg-storm-amber-bright disabled:opacity-50
+                           transition-colors duration-150"
+              >
+                {state === "submitting" && "Joining..."}
+                {state === "success" && "▸ Welcome to Storm AI"}
+                {(state === "idle" || state === "error") && "Join the Community →"}
+              </button>
+
+              {state === "success" && (
+                <p className="text-storm-success text-xs font-mono text-center">
+                  Check out the GitHub repo to get started immediately.
+                </p>
+              )}
+            </div>
           </form>
         </div>
       </div>

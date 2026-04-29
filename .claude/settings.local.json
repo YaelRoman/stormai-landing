@@ -18,7 +18,10 @@
       "Bash(git commit -m 'feat: Add animated CLI interface and testing methodologies section *)",
       "Bash(git commit -m 'fix: Set fixed height for CLI terminal element *)",
       "Bash(git commit -m 'fix: Remove eyebrow header from hero section *)",
-      "Bash(git commit -m 'fix: Add top spacing to hero section to clear navbar *)"
+      "Bash(git commit -m 'fix: Add top spacing to hero section to clear navbar *)",
+      "Bash(npx next *)",
+      "Bash(git commit *)",
+      "Bash(npx tsc *)"
     ]
   }
 }

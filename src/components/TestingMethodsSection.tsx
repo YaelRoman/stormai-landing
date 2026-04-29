@@ -5,257 +5,151 @@
 
 "use client";
 
-import { Eye, EyeOff, EyeIcon } from "lucide-react";
 import { useState } from "react";
 
-const testingMethods = [
+const methods = [
   {
-    icon: EyeOff,
-    title: "Black Box Testing",
-    subtitle: "Zero Knowledge Approach",
-    description: "No access to source code or internal systems. Simulate real-world attackers with zero prior knowledge.",
-    benefits: [
-      "Real-world attack simulation",
-      "Discovers exposure vulnerabilities",
-      "Tests from attacker perspective",
-      "No insider bias",
-    ],
-    color: "from-gray-600 to-slate-700",
-    accentColor: "text-gray-300",
-    borderColor: "border-gray-400/20",
-    features: ["External reconnaissance", "API fuzzing", "Web crawling", "Network scanning"],
+    id: "black",
+    title: "Black Box",
+    subtitle: "Zero Knowledge",
+    description:
+      "No access to source code or internal systems. Simulate real-world attackers with zero prior knowledge. Tests what's actually exposed.",
+    features: ["External recon", "API fuzzing", "Web crawling", "Network scanning"],
+    coverage: "~40%",
+    speed: "Slow",
+    accuracy: "Highest",
+    accent: "border-storm-secondary",
+    accentText: "text-storm-secondary",
   },
   {
-    icon: EyeIcon,
-    title: "Grey Box Testing",
-    subtitle: "Partial Knowledge Approach",
-    description: "Limited access to source code and system information. Balanced approach combining internal and external perspective.",
-    benefits: [
-      "Comprehensive coverage",
-      "Business logic insights",
-      "Faster vulnerability discovery",
-      "Real-world applicable",
-    ],
-    color: "from-blue-500 to-cyan-500",
-    accentColor: "text-cyan-300",
-    borderColor: "border-cyan-400/30",
-    features: ["Partial code review", "API documentation", "Architecture overview", "Authenticated testing"],
+    id: "grey",
+    title: "Grey Box",
+    subtitle: "Partial Knowledge",
+    description:
+      "Limited source code and architecture access. The balanced approach — combines insider context with realistic attacker simulation.",
+    features: ["Partial code review", "API docs", "Auth testing", "Architecture-aware"],
+    coverage: "~70%",
+    speed: "Moderate",
+    accuracy: "High",
+    accent: "border-storm-amber",
+    accentText: "text-storm-amber",
   },
   {
-    icon: Eye,
-    title: "White Box Testing",
-    subtitle: "Full Knowledge Approach",
-    description: "Complete access to source code, architecture, and system internals. Comprehensive security analysis with full visibility.",
-    benefits: [
-      "Complete code coverage",
-      "Deep vulnerability detection",
-      "Business logic validation",
-      "Compliance verification",
-    ],
-    color: "from-green-500 to-emerald-500",
-    accentColor: "text-green-300",
-    borderColor: "border-green-400/30",
-    features: ["Full source code", "Architecture details", "Database schema", "Authentication bypass"],
+    id: "white",
+    title: "White Box",
+    subtitle: "Full Knowledge",
+    description:
+      "Complete source code, architecture, and internals access. Maximum coverage with full visibility into every code path.",
+    features: ["Full source", "DB schema", "Auth flows", "All endpoints"],
+    coverage: "~95%",
+    speed: "Fast",
+    accuracy: "Comprehensive",
+    accent: "border-storm-success",
+    accentText: "text-storm-success",
   },
 ];
 
+const tableRows = [
+  { aspect: "Source Code Access", black: "None", grey: "Partial", white: "Full" },
+  { aspect: "Coverage", black: "~40%", grey: "~70%", white: "~95%" },
+  { aspect: "Real-world Accuracy", black: "Highest", grey: "High", white: "Moderate" },
+  { aspect: "Time Required", black: "High", grey: "Medium", white: "Low" },
+  { aspect: "Recommended For", black: "Perimeter testing", grey: "Standard audits", white: "Deep code review" },
+];
+
 export default function TestingMethodsSection() {
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const [hovered, setHovered] = useState<string | null>(null);
 
   return (
-    <section className="py-20 bg-gradient-to-b from-slate-900/50 to-slate-900/30 px-8 backdrop-blur-sm">
+    <section className="py-24 bg-storm-base section-divider px-8">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-white mb-4">
+
+        {/* Header */}
+        <div className="mb-12">
+          <div className="label mb-3">Methodology</div>
+          <h2 className="text-4xl font-bold text-storm-text">
             Security Testing Methods
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Storm AI supports multiple security testing approaches. Choose the methodology that best fits your security assessment needs.
+          <p className="text-storm-secondary mt-3 max-w-xl">
+            Storm supports all three methodologies. Choose based on your assessment needs
+            and available access.
           </p>
         </div>
 
-        {/* Testing Methods Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          {testingMethods.map((method, idx) => {
-            const IconComponent = method.icon;
-            const isHovered = hoveredIdx === idx;
-
-            return (
-              <div
-                key={idx}
-                onMouseEnter={() => setHoveredIdx(idx)}
-                onMouseLeave={() => setHoveredIdx(null)}
-                className="group relative h-full"
-              >
-                {/* Glow background */}
-                <div
-                  className={`absolute -inset-2 rounded-xl opacity-0 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none ${
-                    isHovered
-                      ? `bg-gradient-to-r ${method.color}`
-                      : "bg-gradient-to-r from-gray-500 to-gray-600"
-                  }`}
-                  style={{
-                    filter: "blur(8px)",
-                    zIndex: -1,
-                  }}
-                />
-
-                {/* Card */}
-                <div
-                  className={`relative glass rounded-xl p-8 border transition-all duration-300 h-full flex flex-col ${
-                    isHovered
-                      ? `${method.borderColor} bg-white/15`
-                      : `${method.borderColor} hover:${method.borderColor}`
-                  }`}
-                >
-                  {/* Icon */}
-                  <div
-                    className={`w-16 h-16 rounded-lg mb-6 flex items-center justify-center transition-all ${
-                      isHovered
-                        ? `bg-gradient-to-br ${method.color}`
-                        : "bg-white/5"
-                    }`}
-                  >
-                    <IconComponent
-                      size={32}
-                      className={`transition-colors ${
-                        isHovered ? "text-white" : method.accentColor
-                      }`}
-                    />
+        {/* Method cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-storm-border mb-12">
+          {methods.map((m) => (
+            <div
+              key={m.id}
+              onMouseEnter={() => setHovered(m.id)}
+              onMouseLeave={() => setHovered(null)}
+              className={`bg-storm-surface p-8 transition-colors duration-150 ${
+                hovered === m.id ? "bg-storm-elevated" : ""
+              }`}
+            >
+              <div className={`border-t-2 pt-6 ${m.accent}`}>
+                <div className="label mb-1">{m.subtitle}</div>
+                <h3 className="text-2xl font-bold text-storm-text mb-3">{m.title}</h3>
+                <p className="text-storm-secondary text-sm leading-relaxed mb-6">
+                  {m.description}
+                </p>
+                <div className="space-y-1.5">
+                  {m.features.map((f) => (
+                    <div key={f} className="flex items-center gap-2 text-sm">
+                      <span className={`font-mono text-xs ${m.accentText}`}>▸</span>
+                      <span className="text-storm-text">{f}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-6 grid grid-cols-3 gap-2 pt-6 border-t border-storm-border">
+                  <div>
+                    <div className="label text-[0.55rem] mb-1">Coverage</div>
+                    <div className={`font-mono text-sm font-bold ${m.accentText}`}>{m.coverage}</div>
                   </div>
-
-                  {/* Title */}
-                  <h3 className="text-2xl font-bold text-white mb-2">
-                    {method.title}
-                  </h3>
-                  <p className={`text-sm font-semibold mb-4 ${method.accentColor}`}>
-                    {method.subtitle}
-                  </p>
-
-                  {/* Description */}
-                  <p className="text-gray-300 mb-6 flex-grow">
-                    {method.description}
-                  </p>
-
-                  {/* Benefits */}
-                  <div
-                    className={`mb-6 transition-all duration-300 ${
-                      isHovered ? "opacity-100 max-h-96" : "opacity-0 max-h-0"
-                    }`}
-                  >
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
-                      Key Benefits
-                    </p>
-                    <ul className="space-y-2">
-                      {method.benefits.map((benefit, bidx) => (
-                        <li
-                          key={bidx}
-                          className="text-sm text-gray-300 flex items-center gap-2"
-                        >
-                          <span
-                            className={`w-1.5 h-1.5 rounded-full ${method.accentColor}`}
-                          />
-                          {benefit}
-                        </li>
-                      ))}
-                    </ul>
+                  <div>
+                    <div className="label text-[0.55rem] mb-1">Speed</div>
+                    <div className="font-mono text-sm text-storm-text">{m.speed}</div>
                   </div>
-
-                  {/* Features list */}
-                  <div className="grid grid-cols-2 gap-2">
-                    {method.features.map((feature, fidx) => (
-                      <div
-                        key={fidx}
-                        className={`text-xs px-3 py-2 rounded-md transition-all ${
-                          isHovered
-                            ? `bg-white/10 ${method.accentColor}`
-                            : "bg-white/5 text-gray-400"
-                        }`}
-                      >
-                        {feature}
-                      </div>
-                    ))}
+                  <div>
+                    <div className="label text-[0.55rem] mb-1">Accuracy</div>
+                    <div className="font-mono text-sm text-storm-text">{m.accuracy}</div>
                   </div>
-
-                  {/* Indicator */}
-                  <div
-                    className={`absolute top-6 right-6 w-2 h-2 rounded-full transition-all ${
-                      isHovered
-                        ? `${method.accentColor} animate-pulse`
-                        : "bg-gray-600"
-                    }`}
-                  />
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
 
         {/* Comparison table */}
-        <div className="glass rounded-xl border border-white/10 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-white/10 bg-white/5">
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-white">
-                    Aspect
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300">
-                    Black Box
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-cyan-300">
-                    Grey Box
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-green-300">
-                    White Box
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  { aspect: "Source Code Access", blackbox: "❌", greybox: "🟡 Partial", whitebox: "✅ Full" },
-                  { aspect: "Time Required", blackbox: "⭐⭐⭐", greybox: "⭐⭐", whitebox: "⭐" },
-                  { aspect: "Coverage", blackbox: "~40%", greybox: "~70%", whitebox: "~95%" },
-                  { aspect: "Real-world Accuracy", blackbox: "⭐⭐⭐⭐⭐", greybox: "⭐⭐⭐⭐", whitebox: "⭐⭐⭐" },
-                  { aspect: "Cost", blackbox: "💰💰", greybox: "💰", whitebox: "💰💰💰" },
-                ].map((row, idx) => (
-                  <tr
-                    key={idx}
-                    className={`border-b border-white/5 transition-colors ${
-                      idx % 2 === 0 ? "bg-white/2" : ""
-                    } hover:bg-white/10`}
-                  >
-                    <td className="px-6 py-4 text-sm font-medium text-white">
-                      {row.aspect}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-400">
-                      {row.blackbox}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-cyan-300">
-                      {row.greybox}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-green-300">
-                      {row.whitebox}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <div className="border border-storm-border overflow-hidden">
+          <div className="grid grid-cols-4 bg-storm-surface border-b border-storm-border">
+            <div className="px-6 py-3 label">Aspect</div>
+            <div className="px-6 py-3 label text-storm-secondary">Black Box</div>
+            <div className="px-6 py-3 label text-storm-amber">Grey Box</div>
+            <div className="px-6 py-3 label text-storm-success">White Box</div>
           </div>
+          {tableRows.map((row, idx) => (
+            <div
+              key={idx}
+              className={`grid grid-cols-4 border-b border-storm-border last:border-b-0 hover:bg-storm-elevated transition-colors ${
+                idx % 2 === 0 ? "bg-storm-base" : "bg-storm-surface"
+              }`}
+            >
+              <div className="px-6 py-3.5 text-storm-text text-sm font-medium">{row.aspect}</div>
+              <div className="px-6 py-3.5 text-storm-secondary text-sm font-mono">{row.black}</div>
+              <div className="px-6 py-3.5 text-storm-amber text-sm font-mono">{row.grey}</div>
+              <div className="px-6 py-3.5 text-storm-success text-sm font-mono">{row.white}</div>
+            </div>
+          ))}
         </div>
 
-        {/* Bottom callout */}
-        <div className="mt-12 text-center">
-          <p className="text-gray-300 mb-6">
-            Storm AI intelligently adapts its testing strategy to maximize vulnerability discovery based on the information available.
+        {/* Recommendation */}
+        <div className="mt-6 flex items-center gap-3 px-6 py-4 border border-storm-amber/40 bg-storm-surface">
+          <span className="text-storm-amber font-mono text-xs">▸ RECOMMENDED</span>
+          <p className="text-storm-secondary text-sm">
+            Start with <span className="text-storm-text font-semibold">Grey Box</span> for optimal
+            coverage and cost-effectiveness on standard security assessments
           </p>
-          <div className="inline-block">
-            <div className="glass rounded-lg px-8 py-4 border border-cyan-400/30 hover:border-cyan-400 transition-colors">
-              <p className="text-white font-semibold">
-                🎯 Recommended: Start with Grey Box for optimal coverage and cost-effectiveness
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </section>

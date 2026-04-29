@@ -7,138 +7,164 @@
 
 import { useState, useEffect } from "react";
 
+const CLI_OUTPUT = `$ storm scan https://target.com
+▸ initializing autonomous agents
+▸ browser automation: ready
+▸ http interceptor: active
+
+[02s] surface mapped — 847 endpoints found
+[05s] !! sql injection @ /api/users?id=
+[08s] !! xss reflected @ /search?q=
+[12s] !! auth bypass @ /admin/panel
+[15s] generating proof-of-concept exploits
+[18s] poc #1  sql injection — EXPLOITED
+[21s] poc #2  xss attack — EXPLOITED
+[24s] poc #3  auth bypass — EXPLOITED
+[27s] opening auto-fix pull request
+▸ done: 3 critical  0 false positives`;
+
+function terminalLineClass(line: string): string {
+  if (line.includes("EXPLOITED")) return "text-storm-success font-semibold";
+  if (line.includes("!!")) return "text-storm-danger";
+  if (line.startsWith("$")) return "text-storm-amber font-semibold";
+  if (line.startsWith("▸")) return "text-storm-amber/70";
+  if (line.match(/^\[\d+s\]/)) return "text-storm-muted";
+  return "text-storm-secondary";
+}
+
 export default function HeroSection() {
   const [displayText, setDisplayText] = useState("");
-  const cliOutput = `$ storm scan https://vulnerable-app.com
-▶ Initializing autonomous security agents...
-✓ 4 agents deployed to target
-✓ Browser automation initialized
-✓ HTTP proxy interceptor ready
-
-[00:02] Scanning application surface...
-[00:05] ⚠ SQL Injection found in /api/users
-[00:08] ⚠ Cross-Site Scripting in search param
-[00:12] ⚠ Authentication bypass detected
-[00:15] Generating proof-of-concept exploits...
-[00:18] ✓ PoC 1: SQL Injection - CONFIRMED
-[00:21] ✓ PoC 2: XSS Attack - CONFIRMED
-[00:24] ✓ PoC 3: Auth Bypass - CONFIRMED
-[00:27] Generating remediation code...
-✓ Auto-fix PR ready for merge`;
 
   useEffect(() => {
     let index = 0;
     const interval = setInterval(() => {
-      if (index < cliOutput.length) {
-        setDisplayText(cliOutput.slice(0, index + 1));
+      if (index < CLI_OUTPUT.length) {
+        setDisplayText(CLI_OUTPUT.slice(0, index + 1));
         index++;
       } else {
-        index = 0;
-        setDisplayText("");
+        setTimeout(() => {
+          index = 0;
+          setDisplayText("");
+        }, 2400);
       }
-    }, 15);
-
+    }, 14);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative gradient-bg flex items-center justify-center px-8 overflow-hidden pt-32">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/2 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
-      </div>
-      <div className="max-w-4xl mx-auto text-center relative z-10 mt-20">
-        {/* Headline */}
-        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-          Find Vulnerabilities with Autonomous AI Agents
-        </h1>
+    <section className="min-h-screen bg-storm-base hero-grid scanlines relative flex items-center pt-24 overflow-hidden">
+      {/* Ambient amber glow — left side */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 60% at 20% 50%, rgba(232,138,21,0.07) 0%, transparent 70%)",
+        }}
+      />
 
-        {/* Subheading */}
-        <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
-          Real validation with proof-of-concept exploits. No false positives. Multi-agent orchestration for comprehensive security testing across your applications.
-        </p>
+      <div className="max-w-7xl mx-auto px-8 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center py-16">
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <a
-            href="https://github.com/AustenLynn/strix"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-xl font-semibold transition-all duration-300 backdrop-blur-sm"
+        {/* ── Left: Editorial headline ── */}
+        <div>
+          <div className="label mb-8 anim-fade-up" style={{ animationDelay: "0.05s" }}>
+            Autonomous Security Testing
+          </div>
+
+          <h1
+            className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[0.92] tracking-tight text-storm-text mb-6 anim-fade-up"
+            style={{ animationDelay: "0.12s" }}
           >
-            View on GitHub
-          </a>
-          <a
-            href="https://github.com/AustenLynn/strix#readme"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-8 py-4 glass rounded-xl font-semibold"
+            Find Vulns<br />
+            with<br />
+            <span className="text-storm-amber">AI Agents</span>
+          </h1>
+
+          <p
+            className="text-storm-secondary text-lg leading-relaxed max-w-md mb-10 anim-fade-up"
+            style={{ animationDelay: "0.22s" }}
           >
-            Read Documentation
-          </a>
+            Real validation with working proof-of-concept exploits. No false
+            positives. Multi-agent orchestration for comprehensive security
+            testing across your stack.
+          </p>
+
+          <div
+            className="flex flex-col sm:flex-row gap-3 anim-fade-up"
+            style={{ animationDelay: "0.32s" }}
+          >
+            <a
+              href="https://github.com/AustenLynn/strix"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-amber inline-block text-center"
+            >
+              View on GitHub →
+            </a>
+            <a
+              href="https://github.com/AustenLynn/strix#readme"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-ghost inline-block text-center"
+            >
+              Read Docs
+            </a>
+          </div>
+
+          {/* Trust signals */}
+          <div
+            className="mt-10 flex gap-6 anim-fade-up"
+            style={{ animationDelay: "0.40s" }}
+          >
+            {["Apache 2.0", "Multi-LLM", "Zero False Positives"].map((tag) => (
+              <div key={tag} className="flex items-center gap-1.5">
+                <span className="w-1 h-1 bg-storm-amber rounded-full" />
+                <span className="text-storm-muted text-xs font-mono">{tag}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Animated CLI Terminal */}
-        <div className="relative w-full max-w-2xl mx-auto mt-8">
-          <div className="glass rounded-lg overflow-hidden border border-cyan-400/30">
-            {/* Terminal header */}
-            <div className="bg-slate-900 px-4 py-3 border-b border-cyan-400/20 flex items-center gap-3">
-              <div className="flex gap-2">
-                <div className="w-3 h-3 rounded-full bg-red-500" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                <div className="w-3 h-3 rounded-full bg-green-500" />
+        {/* ── Right: Amber terminal ── */}
+        <div
+          className="anim-fade-up"
+          style={{ animationDelay: "0.25s" }}
+        >
+          <div className="border border-storm-border-bright bg-storm-surface shadow-amber">
+            {/* Terminal chrome */}
+            <div className="border-b border-storm-border px-4 py-2.5 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-2.5 h-2.5 rounded-full bg-storm-danger/60" />
+                <div className="w-2.5 h-2.5 rounded-full bg-storm-amber/40" />
+                <div className="w-2.5 h-2.5 rounded-full bg-storm-success/40" />
               </div>
-              <span className="text-gray-400 text-sm font-mono">storm-scan</span>
+              <span className="font-mono text-storm-muted text-xs tracking-widest">
+                STORM · SCAN
+              </span>
+              <div className="w-16" />
             </div>
 
-            {/* Terminal content */}
-            <div className="bg-slate-950 p-4 h-80 overflow-y-auto font-mono text-sm">
-              <div className="space-y-1">
-                {displayText.split("\n").map((line, idx) => {
-                  const isVulnerability = line.includes("⚠") || line.includes("PoC");
-                  const isSuccess = line.includes("✓");
-                  const isWarning = line.includes("⚠");
-
-                  return (
-                    <div
-                      key={idx}
-                      className={`transition-all duration-300 ${
-                        isVulnerability
-                          ? "bg-gradient-to-r from-red-500/20 to-transparent px-2 py-1"
-                          : ""
-                      }`}
-                    >
-                      <span
-                        className={`${
-                          isSuccess
-                            ? "text-green-400"
-                            : isWarning
-                            ? "text-orange-400 font-semibold"
-                            : line.includes("$")
-                            ? "text-cyan-400"
-                            : line.match(/\[\d+:\d+\]/)
-                            ? "text-gray-500"
-                            : "text-gray-300"
-                        }`}
-                      >
-                        {line}
-                      </span>
-                    </div>
-                  );
-                })}
-                {/* Cursor */}
-                <span className="text-green-400 animate-pulse">▌</span>
-              </div>
+            {/* Terminal output */}
+            <div className="p-5 h-80 overflow-hidden font-mono text-[0.8rem] leading-relaxed bg-storm-base">
+              {displayText.split("\n").map((line, idx) => (
+                <div key={idx} className={terminalLineClass(line)}>
+                  {line || " "}
+                </div>
+              ))}
+              <span
+                className="inline-block w-2 h-4 bg-storm-amber"
+                style={{ animation: "blinkCursor 1s step-end infinite" }}
+              />
             </div>
           </div>
 
-          {/* Info text */}
-          <p className="text-center text-sm text-gray-400 mt-4">
-            Real-time vulnerability detection and exploitation
+          <p className="mt-3 text-center text-storm-muted text-xs font-mono">
+            real-time vulnerability detection and exploitation
           </p>
         </div>
       </div>
+
+      {/* Bottom rule */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-storm-border" />
     </section>
   );
 }
-

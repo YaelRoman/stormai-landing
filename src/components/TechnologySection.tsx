@@ -6,105 +6,96 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Shield,
-  Wrench,
-  Zap,
-  Bot,
-  Code,
-  Target,
-} from "lucide-react";
 
 const features = [
   {
+    tag: "Core",
     title: "Autonomous AI Agents",
-    description: "Multi-agent orchestration for parallel security testing across your applications",
-    icon: Bot,
+    description:
+      "Multi-agent orchestration for parallel security testing. Agents collaborate, share findings, and divide attack surface automatically.",
   },
   {
+    tag: "Validation",
     title: "Proof-of-Concept Exploits",
-    description: "Real validation with working PoCs, eliminating false positives",
-    icon: Target,
+    description:
+      "Every finding comes with a working exploit. No theoretical risks — confirmed, reproducible attack chains that security teams can trust.",
   },
   {
+    tag: "Toolkit",
     title: "Full Hacker Toolkit",
-    description: "HTTP proxy, browser automation, terminal environments, and Python runtime",
-    icon: Wrench,
+    description:
+      "HTTP proxy, browser automation, terminal environments, and Python runtime. Everything a manual pentester uses, fully automated.",
   },
   {
-    title: "Comprehensive Coverage",
-    description: "Detects access control, injection attacks, authentication, and business logic flaws",
-    icon: Shield,
+    tag: "Coverage",
+    title: "Comprehensive Detection",
+    description:
+      "Access control, injection attacks, authentication flaws, and business logic vulnerabilities across your entire application stack.",
   },
   {
-    title: "Auto-Fix Capabilities",
-    description: "Ready-to-merge pull requests with remediation code",
-    icon: Code,
+    tag: "Remediation",
+    title: "Auto-Fix Pull Requests",
+    description:
+      "Storm generates remediation code and opens pull requests automatically. Security findings resolved as fast as they're discovered.",
   },
   {
+    tag: "Pipeline",
     title: "CI/CD Integration",
-    description: "GitHub Actions integration for automated security testing in your pipeline",
-    icon: Zap,
+    description:
+      "GitHub Actions integration for automated security testing on every commit. Security shifts left — into the development workflow.",
   },
 ];
 
 export default function TechnologySection() {
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <section className="py-20 bg-gradient-to-b from-purple-900/30 to-slate-900/50 px-8 backdrop-blur-sm">
+    <section className="py-24 bg-storm-base section-divider px-8">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-white mb-12">
-          Autonomous Security Testing Platform
-        </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {features.map((feature, idx) => {
-            const IconComponent = feature.icon;
-            const isHovered = hoveredIdx === idx;
+        <div className="mb-12 grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+          <div>
+            <div className="label mb-3">Platform</div>
+            <h2 className="text-4xl font-bold text-storm-text">
+              Autonomous Security<br />Testing Platform
+            </h2>
+          </div>
+          <p className="text-storm-secondary leading-relaxed md:text-right">
+            Built for security teams who need real results — not scan reports
+            full of maybes.
+          </p>
+        </div>
 
-            return (
-              <div
-                key={idx}
-                onMouseEnter={() => setHoveredIdx(idx)}
-                onMouseLeave={() => setHoveredIdx(null)}
-                className="group relative"
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-storm-border">
+          {features.map((f, idx) => (
+            <div
+              key={idx}
+              onMouseEnter={() => setHovered(idx)}
+              onMouseLeave={() => setHovered(null)}
+              className={`bg-storm-surface p-7 transition-colors duration-150 ${
+                hovered === idx ? "bg-storm-elevated" : ""
+              }`}
+            >
+              <div className="label mb-3">{f.tag}</div>
+              <h3
+                className={`text-lg font-bold mb-3 transition-colors duration-150 ${
+                  hovered === idx ? "text-storm-amber" : "text-storm-text"
+                }`}
               >
-                {/* Animated glow */}
-                <div className={`absolute inset-0 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-cyan-500 to-blue-500`} />
+                {f.title}
+              </h3>
+              <p className="text-storm-secondary text-sm leading-relaxed">{f.description}</p>
+            </div>
+          ))}
+        </div>
 
-                {/* Card */}
-                <div className={`relative glass rounded-xl p-6 border transition-all duration-300 transform ${
-                  isHovered
-                    ? "border-cyan-400/50 bg-white/15 scale-105 shadow-xl"
-                    : "border-white/10 hover:border-white/20 bg-white/5"
-                }`}>
-                  {/* Icon wrapper with animation */}
-                  <div className={`inline-flex items-center justify-center w-14 h-14 rounded-lg mb-4 transition-all ${
-                    isHovered
-                      ? "bg-gradient-to-br from-cyan-500 to-blue-500 scale-110"
-                      : "bg-gray-500/20"
-                  }`}>
-                    <IconComponent className={`w-7 h-7 transition-colors ${
-                      isHovered ? "text-white" : "text-cyan-400"
-                    }`} />
-                  </div>
-
-                  <h3 className="text-xl font-bold text-white mb-3">
-                    {feature.title}
-                  </h3>
-                  <p className={`transition-colors ${
-                    isHovered ? "text-gray-200" : "text-gray-300"
-                  }`}>{feature.description}</p>
-
-                  {/* Hover accent line */}
-                  <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-b-xl transition-all duration-300 ${
-                    isHovered ? "opacity-100" : "opacity-0"
-                  }`} />
-                </div>
-              </div>
-            );
-          })}
+        {/* Subtle bottom line */}
+        <div className="mt-8 flex items-center gap-4 text-storm-muted text-xs font-mono">
+          <span>Apache 2.0 Open Source</span>
+          <span className="text-storm-border">·</span>
+          <span>OpenAI · Anthropic · Gemini</span>
+          <span className="text-storm-border">·</span>
+          <span>Self-hostable</span>
         </div>
       </div>
     </section>

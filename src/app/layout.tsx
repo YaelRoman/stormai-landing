@@ -26,9 +26,12 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=JetBrains+Mono:wght@400;600&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap"
+          rel="stylesheet"
+        />
       </head>
-      <body className="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-[#f0f0f0] font-sans antialiased">
+      <body className="bg-storm-base text-storm-text font-sans antialiased">
         {children}
       </body>
     </html>

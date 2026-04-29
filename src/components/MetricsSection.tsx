@@ -5,93 +5,60 @@
 
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-interface MetricItem {
-  label: string;
-  value: string;
-  icon: string;
-  color: string;
-}
-
-const metrics: MetricItem[] = [
-  { label: "Validation Accuracy", value: "100%", icon: "✓", color: "from-green-500 to-emerald-500" },
-  { label: "False Positive Rate", value: "0%", icon: "◆", color: "from-blue-500 to-cyan-500" },
-  { label: "Parallel Agents", value: "∞", icon: "⚡", color: "from-purple-500 to-pink-500" },
+const metrics = [
+  {
+    value: "100%",
+    label: "Validation Accuracy",
+    sub: "Every finding confirmed with a working exploit",
+    accent: "text-storm-amber",
+  },
+  {
+    value: "0%",
+    label: "False Positive Rate",
+    sub: "Zero noise — only actionable, reproducible findings",
+    accent: "text-storm-danger",
+  },
+  {
+    value: "∞",
+    label: "Parallel Agents",
+    sub: "Scale horizontally to match any target complexity",
+    accent: "text-storm-success",
+  },
 ];
 
 export default function MetricsSection() {
   const [inView, setInView] = useState(false);
-  const [counters, setCounters] = useState([0, 0, 100]);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-        }
-      },
-      { threshold: 0.5 }
+      ([entry]) => { if (entry.isIntersecting) setInView(true); },
+      { threshold: 0.4 }
     );
-
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (!inView) return;
-
-    const intervals = [
-      setInterval(() => {
-        setCounters(prev => [Math.min(prev[0] + 1, 100), prev[1], prev[2]]);
-      }, 20),
-      setInterval(() => {
-        setCounters(prev => [prev[0], prev[1], prev[2]]);
-      }, 20),
-    ];
-
-    return () => intervals.forEach(clearInterval);
-  }, [inView]);
-
   return (
-    <section className="py-20 bg-gradient-to-b from-slate-900/50 to-purple-900/30 px-8 backdrop-blur-sm" ref={ref}>
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {metrics.map((metric, idx) => (
-            <div key={metric.label} className="group">
-              {/* Glow background */}
-              <div className={`absolute inset-0 rounded-xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity bg-gradient-to-r ${metric.color}`} />
-
-              {/* Card */}
-              <div className="relative glass rounded-xl p-8 border border-white/10 hover:border-white/20 transition-all hover:bg-white/10 text-center h-full">
-                {/* Animated icon */}
-                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r ${metric.color} mb-6 text-2xl font-bold text-white animate-pulse`}>
-                  {metric.icon}
-                </div>
-
-                {/* Value with animated counter */}
-                <div className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-4">
-                  {inView && idx < 2 ? counters[idx] : metric.value}
-                  {idx < 2 && "%"}
-                </div>
-
-                {/* Label */}
-                <p className="text-lg text-gray-300">{metric.label}</p>
-
-                {/* Progress bar for first two metrics */}
-                {idx < 2 && inView && (
-                  <div className="mt-4 w-full bg-white/10 rounded-full h-2 overflow-hidden">
-                    <div
-                      className={`h-full bg-gradient-to-r ${metric.color} transition-all duration-500`}
-                      style={{ width: `${counters[idx]}%` }}
-                    />
-                  </div>
-                )}
-              </div>
+    <section className="bg-storm-surface section-divider" ref={ref}>
+      <div className="max-w-6xl mx-auto divide-y md:divide-y-0 md:divide-x divide-storm-border grid grid-cols-1 md:grid-cols-3">
+        {metrics.map((m, idx) => (
+          <div
+            key={m.label}
+            className={`px-10 py-14 transition-all duration-700 ${
+              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: `${idx * 120}ms` }}
+          >
+            <div className={`font-mono text-7xl font-bold leading-none mb-4 ${m.accent}`}>
+              {m.value}
             </div>
-          ))}
-        </div>
+            <div className="text-storm-text font-bold text-xl mb-2">{m.label}</div>
+            <div className="text-storm-muted text-sm font-mono leading-relaxed">{m.sub}</div>
+          </div>
+        ))}
       </div>
     </section>
   );

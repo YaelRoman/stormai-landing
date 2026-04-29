@@ -23,19 +23,28 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-b from-slate-900/50 to-slate-900/80 backdrop-blur-md border-t border-white/10 py-12 px-8">
+    <footer className="bg-storm-surface border-t border-storm-amber/20 py-12 px-8">
       <div className="max-w-6xl mx-auto">
-        {/* Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+          <div>
+            <div className="font-mono text-storm-amber font-bold text-base tracking-[0.2em] mb-4">
+              STORM
+            </div>
+            <p className="text-storm-muted text-sm leading-relaxed">
+              Autonomous AI security testing. Open source, multi-LLM, fully self-hostable.
+            </p>
+          </div>
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h3 className="font-bold text-white mb-4">{title}</h3>
-              <ul className="space-y-2">
+              <div className="label mb-4">{title}</div>
+              <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-gray-400 hover:text-cyan-400 transition-colors text-sm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-storm-secondary hover:text-storm-text text-sm transition-colors duration-150"
                     >
                       {link.label}
                     </a>
@@ -45,11 +54,12 @@ export default function Footer() {
             </div>
           ))}
         </div>
-
-        {/* Divider */}
-        <div className="border-t border-white/10 pt-8">
-          <p className="text-gray-300 text-sm text-center">
-            © 2026 Storm AI Contributors. Open source under Apache License 2.0.
+        <div className="border-t border-storm-border pt-6 flex items-center justify-between">
+          <p className="text-storm-muted text-xs font-mono">
+            © 2026 Storm AI Contributors
+          </p>
+          <p className="text-storm-muted text-xs font-mono">
+            Apache License 2.0
           </p>
         </div>
       </div>
